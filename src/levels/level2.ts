@@ -6,90 +6,92 @@ export const level2: LevelConfig = {
   worldWidth: 2000,
   worldHeight: 2000,
 
-  // Three enemy types: fast basic, speedy scout, slow tank
   enemyTypes: [
     {
       key: 'basic',
-      speed: 90,
-      health: 40,
-      damage: 12,
+      speed: 110,     // was 90
+      health: 60,     // was 40
+      damage: 18,     // was 12 — 5 hits = dead with starting HP
       xpValue: 12,
       color: 0xe74c3c,
       size: 14,
     },
     {
       key: 'fast',
-      speed: 155,
-      health: 20,
-      damage: 8,
+      speed: 190,     // was 155 — very hard to outrun
+      health: 30,     // was 20
+      damage: 12,
       xpValue: 15,
       color: 0xff6b35,
       size: 10,
     },
     {
       key: 'tank',
-      speed: 45,
-      health: 120,
-      damage: 20,
-      xpValue: 30,
+      speed: 60,      // was 45 — tanks now actually catch you
+      health: 220,    // was 120
+      damage: 28,     // was 20
+      xpValue: 35,
       color: 0x8b0000,
       size: 20,
     },
   ],
 
-  baseSpawnInterval: 1400,
-  spawnIntervalDecay: 150,
-  minSpawnInterval: 400,
+  baseSpawnInterval: 1000,  // was 1400 — immediately stressful
+  spawnIntervalDecay: 250,  // was 150
+  minSpawnInterval: 350,    // was 400
+
+  enemyScaling: { healthPerMinute: 0.25, speedPerMinute: 0.12 },
 
   initialPlayerStats: {
-    maxHealth: 80,
-    speed: 150,
+    maxHealth: 65,          // was 80 — fragile
+    speed: 152,
     attackDamage: 25,
-    attackCooldown: 900,
+    attackCooldown: 1100,
     projectileSpeed: 400,
     projectileCount: 1,
   },
+
+  // XP curve: 180 → 410 → WIN
+  xpToLevel: (level) => Math.floor(180 * Math.pow(2.3, level - 1)),
 
   availableUpgrades: [
     {
       id: 'speed_up',
       label: 'Swift Feet',
-      description: '+20 Movement Speed',
-      apply: (stats) => { stats.speed += 20; },
+      description: '+22 Movement Speed',
+      apply: (s) => { s.speed += 22; },
     },
     {
       id: 'damage_up',
       label: 'Power Strike',
       description: '+15 Attack Damage',
-      apply: (stats) => { stats.attackDamage += 15; },
+      apply: (s) => { s.attackDamage += 15; },
     },
     {
       id: 'cooldown_down',
       label: 'Rapid Fire',
-      description: '-200ms Attack Cooldown',
-      apply: (stats) => { stats.attackCooldown = Math.max(200, stats.attackCooldown - 200); },
+      description: '-220ms Attack Cooldown',
+      apply: (s) => { s.attackCooldown = Math.max(250, s.attackCooldown - 220); },
     },
     {
       id: 'health_up',
       label: 'Vitality',
-      description: '+30 Max Health',
-      apply: (stats) => { stats.maxHealth += 30; },
+      description: '+35 Max Health',
+      apply: (s) => { s.maxHealth += 35; },
     },
     {
       id: 'proj_speed',
       label: 'Sharpshot',
-      description: '+50 Projectile Speed',
-      apply: (stats) => { stats.projectileSpeed += 50; },
+      description: '+60 Projectile Speed',
+      apply: (s) => { s.projectileSpeed += 60; },
     },
     {
       id: 'multishot',
-      label: 'Multi-Shot',
-      description: '+1 Projectile per shot',
-      apply: (stats) => { stats.projectileCount += 1; },
+      label: 'Burst Fire',
+      description: '+1 Projectile (sequential)',
+      apply: (s) => { s.projectileCount += 1; },
     },
   ],
 
-  xpToLevel: (level) => Math.floor(80 * Math.pow(1.5, level - 1)),
-
-  winCondition: { type: 'survival', duration: 600 },
+  maxPlayerLevel: 3,
 };

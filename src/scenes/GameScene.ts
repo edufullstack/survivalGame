@@ -273,7 +273,55 @@ export class GameScene extends Phaser.Scene {
     if (!orb.active) return;
     const leveled = this.player.gainXP(orb.value, this.levelConfig.xpToLevel);
     orb.deactivate();
-    if (leveled) this.showUpgradeMenu();
+
+    if (!leveled) return;
+
+    const maxLevel = this.levelConfig.maxPlayerLevel ?? 3;
+
+    if (this.player.level > maxLevel) {
+      // Player collected enough XP at the final level → WIN
+      this.endGame(true);
+      return;
+    }
+
+    // Flash + wave on every level-up
+    this.triggerDifficultySpike(this.player.level);
+    this.showUpgradeMenu();
+  }
+
+  /** Camera flash + warning text + enemy wave burst on player level-up. */
+  private triggerDifficultySpike(newPlayerLevel: number): void {
+    // Built-in camera flash (red tint)
+    this.cameras.main.flash(700, 200, 20, 20);
+
+    const { width, height } = this.cameras.main;
+    const waveSize  = newPlayerLevel === 2 ? 6 : 12;
+    const label     = newPlayerLevel === 2
+      ? '⚠  NIVEL 2 — OLEADA ENEMIGA'
+      : '☠  NIVEL 3 — HORDA FINAL';
+    const bgColor   = newPlayerLevel === 2 ? 0x2a1000 : 0x220000;
+    const txtColor  = newPlayerLevel === 2 ? '#ff8800' : '#ff2222';
+
+    const bg = this.add
+      .rectangle(width / 2, height * 0.20, 400, 54, bgColor, 0.90)
+      .setScrollFactor(0).setDepth(500);
+
+    const txt = this.add
+      .text(width / 2, height * 0.20, label, {
+        fontSize: '20px', color: txtColor, fontStyle: 'bold',
+      })
+      .setOrigin(0.5)
+      .setScrollFactor(0).setDepth(501);
+
+    this.tweens.add({
+      targets: [bg, txt],
+      alpha: 0,
+      delay: 1400,
+      duration: 600,
+      onComplete: () => { bg.destroy(); txt.destroy(); },
+    });
+
+    this.enemySpawner.spawnWave(waveSize);
   }
 
   private dropXPOrb(x: number, y: number, value: number): void {

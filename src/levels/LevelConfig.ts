@@ -48,6 +48,21 @@ export interface LevelConfig {
   /** XP required to go from level N to N+1 */
   xpToLevel: (level: number) => number;
   winCondition?: { type: 'survival'; duration: number }; // duration in seconds
+  // ── Difficulty scaling (optional) ────────────────────────────────────────
+  /**
+   * How much enemy stats grow per minute of play.
+   * healthPerMinute: 0.20 = +20% health every 60 s
+   * speedPerMinute:  0.10 = +10% speed every 60 s
+   * Defaults to { healthPerMinute: 0.15, speedPerMinute: 0.08 } if omitted.
+   */
+  enemyScaling?: { healthPerMinute: number; speedPerMinute: number };
+
+  /**
+   * Max XP level the player can reach before the game ends (win).
+   * Defaults to 3. When player XP would push beyond this level → YOU WIN.
+   */
+  maxPlayerLevel?: number;
+
   // ── Visual overrides (optional) ─────────────────────────────────────────
   /** Custom look for XP orbs in this level. Omit to use the default green. */
   xpOrbStyle?: CircleStyle;
