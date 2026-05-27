@@ -297,8 +297,8 @@ export class GameScene extends Phaser.Scene {
     const { width, height } = this.cameras.main;
     const waveSize  = newPlayerLevel === 2 ? 6 : 12;
     const label     = newPlayerLevel === 2
-      ? '⚠  NIVEL 2 — OLEADA ENEMIGA'
-      : '☠  NIVEL 3 — HORDA FINAL';
+      ? '⚠  LEVEL 2 — ENEMY WAVE INCOMING'
+      : '☠  LEVEL 3 — FINAL HORDE';
     const bgColor   = newPlayerLevel === 2 ? 0x2a1000 : 0x220000;
     const txtColor  = newPlayerLevel === 2 ? '#ff8800' : '#ff2222';
 

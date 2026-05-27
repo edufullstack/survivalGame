@@ -18,7 +18,7 @@ export class MenuScene extends Phaser.Scene {
 
     // Greeting with player name
     this.add
-      .text(width / 2, height * 0.11, `Hola, ${playerName}!`, {
+      .text(width / 2, height * 0.11, `Hey, ${playerName}!`, {
         fontSize: '20px',
         color: '#4fc3f7',
       })
@@ -33,7 +33,7 @@ export class MenuScene extends Phaser.Scene {
       .setOrigin(0.5);
 
     this.add
-      .text(width / 2, height * 0.33, 'Elige un nivel', {
+      .text(width / 2, height * 0.33, 'Choose a level', {
         fontSize: '18px',
         color: '#778899',
       })
@@ -45,7 +45,7 @@ export class MenuScene extends Phaser.Scene {
 
     // "Change player" link at bottom
     const changeText = this.add
-      .text(width / 2, height * 0.90, '← Cambiar jugador', {
+      .text(width / 2, height * 0.90, '← Change player', {
         fontSize: '14px',
         color: '#445566',
       })
@@ -66,7 +66,7 @@ export class MenuScene extends Phaser.Scene {
       .setInteractive({ useHandCursor: true });
 
     this.add
-      .text(x, y - 9, `Nivel ${num}: ${config.name}`, {
+      .text(x, y - 9, `Level ${num}: ${config.name}`, {
         fontSize: '19px',
         color: '#ffffff',
         fontStyle: 'bold',
@@ -74,8 +74,8 @@ export class MenuScene extends Phaser.Scene {
       .setOrigin(0.5);
 
     const hint = config.winCondition
-      ? `Sobrevive ${config.winCondition.duration / 60} min`
-      : 'Sin fin';
+      ? `Survive ${config.winCondition.duration / 60} min`
+      : 'Endless';
     this.add
       .text(x, y + 13, hint, { fontSize: '13px', color: '#6688aa' })
       .setOrigin(0.5);

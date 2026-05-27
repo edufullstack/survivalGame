@@ -31,7 +31,7 @@ export class NameInputScene extends Phaser.Scene {
       .setOrigin(0.5);
 
     this.add
-      .text(width / 2, height * 0.26, '¿Quién juega ahora?', {
+      .text(width / 2, height * 0.26, "Who's playing?", {
         fontSize: '24px',
         color: '#aabbcc',
       })
@@ -45,7 +45,7 @@ export class NameInputScene extends Phaser.Scene {
     this.createPlayButton(width / 2, height * 0.52);
 
     this.add
-      .text(width / 2, height * 0.60, 'Presiona Enter o toca Jugar', {
+      .text(width / 2, height * 0.60, 'Press Enter or tap Play', {
         fontSize: '13px',
         color: '#445566',
       })
@@ -66,7 +66,7 @@ export class NameInputScene extends Phaser.Scene {
   private createInputElement(): HTMLInputElement {
     const el = document.createElement('input');
     el.type = 'text';
-    el.placeholder = 'tu nombre...';
+    el.placeholder = 'your name...';
     el.maxLength = 16;
     el.autocomplete = 'off';
     el.spellcheck = false;
@@ -125,7 +125,7 @@ export class NameInputScene extends Phaser.Scene {
       .setInteractive({ useHandCursor: true });
 
     this.add
-      .text(x, y, 'JUGAR  ▶', {
+      .text(x, y, 'PLAY  ▶', {
         fontSize: '22px',
         color: '#4fc3f7',
         fontStyle: 'bold',
@@ -144,7 +144,7 @@ export class NameInputScene extends Phaser.Scene {
     const startY  = height * 0.67;
 
     this.add
-      .text(width / 2, startY, '🏆  MEJORES PUNTAJES', {
+      .text(width / 2, startY, '🏆  TOP SCORES', {
         fontSize: '16px',
         color: '#f1c40f',
         fontStyle: 'bold',
@@ -153,7 +153,7 @@ export class NameInputScene extends Phaser.Scene {
 
     if (entries.length === 0) {
       this.add
-        .text(width / 2, startY + 30, 'Sé el primero en el marcador', {
+        .text(width / 2, startY + 30, 'Be the first on the board!', {
           fontSize: '14px',
           color: '#445566',
         })

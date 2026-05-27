@@ -46,7 +46,7 @@ export class GameOverScene extends Phaser.Scene {
     this.add.rectangle(width / 2, height / 2, width, height, 0x000000, 0.88);
 
     // ── Result header ─────────────────────────────────────────────────────
-    const title      = this.runData.isWin ? '¡GANASTE!' : 'GAME OVER';
+    const title      = this.runData.isWin ? 'YOU WIN!' : 'GAME OVER';
     const titleColor = this.runData.isWin ? '#2ecc71'    : '#e74c3c';
 
     this.add
@@ -97,13 +97,13 @@ export class GameOverScene extends Phaser.Scene {
     this.drawLeaderboard(width, height);
 
     // ── Buttons ───────────────────────────────────────────────────────────
-    this.createButton(width * 0.30, height * 0.90, 'Mismo jugador', 0x1a3a20, () => {
+    this.createButton(width * 0.30, height * 0.90, 'Play Again', 0x1a3a20, () => {
       this.scene.stop('GameScene');
       this.scene.stop();
       this.scene.start('MenuScene');
     });
 
-    this.createButton(width * 0.70, height * 0.90, 'Siguiente jugador', 0x1a2a3a, () => {
+    this.createButton(width * 0.70, height * 0.90, 'Next Player', 0x1a2a3a, () => {
       this.scene.stop('GameScene');
       this.scene.stop();
       this.scene.start('NameInputScene');
@@ -129,11 +129,11 @@ export class GameOverScene extends Phaser.Scene {
     const headerY = height * 0.49;
     const headerStyle = { fontSize: '12px', color: '#556677' };
     this.add.text(C.rank,  headerY, 'POS',   headerStyle).setOrigin(0.5);
-    this.add.text(C.name,  headerY, 'NOMBRE',headerStyle).setOrigin(0.5);
+    this.add.text(C.name,  headerY, 'NAME',  headerStyle).setOrigin(0.5);
     this.add.text(C.score, headerY, 'PTS',   headerStyle).setOrigin(0.5);
-    this.add.text(C.time,  headerY, 'TIEMPO',headerStyle).setOrigin(0.5);
+    this.add.text(C.time,  headerY, 'TIME',  headerStyle).setOrigin(0.5);
     this.add.text(C.level, headerY, 'LV',    headerStyle).setOrigin(0.5);
-    this.add.text(C.map,   headerY, 'NIVEL', headerStyle).setOrigin(0.5);
+    this.add.text(C.map,   headerY, 'MAP',   headerStyle).setOrigin(0.5);
 
     const rowH  = 24;
     const top8  = entries.slice(0, 8);
